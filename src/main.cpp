@@ -2,6 +2,7 @@
 #include <iostream>
 #include "json.hpp"
 #include <math.h>
+#include <string>
 #include "ukf.h"
 #include "tools.h"
 
@@ -26,12 +27,13 @@ std::string hasData(std::string s) {
   return "";
 }
 
-int main()
+int main(int argc, char *argv[])
 {
   uWS::Hub h;
-
   // Create a Kalman Filter instance
   UKF ukf;
+  ukf.std_a_ = stoi(argv[1]);
+  ukf.std_yawdd_ = stof(argv[2]);
 
   // used to compute the RMSE later
   Tools tools;

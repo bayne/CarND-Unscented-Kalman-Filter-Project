@@ -25,11 +25,23 @@ public:
   ///* state vector: [pos1 pos2 vel_abs yaw_angle yaw_rate] in SI units and rad
   VectorXd x_;
 
+  VectorXd x_aug_;
+
   ///* state covariance matrix
   MatrixXd P_;
 
+  MatrixXd P_aug_;
+
+  MatrixXd Xsig_aug_;
+
   ///* predicted sigma points matrix
   MatrixXd Xsig_pred_;
+
+  MatrixXd Zsig_;
+
+  MatrixXd Zsig_laser_;
+  int n_z_;
+  int n_z_laser_;
 
   ///* time when the state is true, in us
   long long time_us_;
@@ -102,6 +114,8 @@ public:
    * @param meas_package The measurement at k+1
    */
   void UpdateRadar(MeasurementPackage meas_package);
+private:
+  double NormalizeAngle(const double angle);
 };
 
 #endif /* UKF_H */
